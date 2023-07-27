@@ -70,6 +70,7 @@ export async function DELETE(
 ) {
   try {
     const { userId } = auth();
+    console.log(params.storeId, params.billboardsId, "Here is the data");
     if (!params.storeId)
       return new NextResponse("StoreId Required", { status: 401 });
     if (!params.billboardsId)
@@ -82,6 +83,7 @@ export async function DELETE(
         userId,
       },
     });
+    console.log(storeByuserId, "Here is the data");
 
     if (!storeByuserId) {
       return new NextResponse("You dont have the right permissions.", {

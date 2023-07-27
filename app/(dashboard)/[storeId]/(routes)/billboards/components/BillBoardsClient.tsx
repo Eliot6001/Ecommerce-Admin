@@ -7,17 +7,19 @@ import { Plus } from 'lucide-react'
 import React from 'react'
 import { useParams, useRouter } from 'next/navigation'
 import { BillBoards } from '@prisma/client'
+import { BillBoardsColumn, columns } from './colums'
+import { DataTable } from '@/components/ui/dataTable'
 
 
 interface BillBoardsClientProps {
-  data: BillBoards[]
+  data: BillBoardsColumn[]
 }
 const BillBoardsClient: React.FC<BillBoardsClientProps>
  = ({ data }) => {
   const router = useRouter();
   const params = useParams();
 
-  
+
   return (
     <>
     <div className="flex items-center justify-between">
@@ -29,7 +31,8 @@ const BillBoardsClient: React.FC<BillBoardsClientProps>
         </Button>   
       </div>
       <Separator />   
-</>
+      <DataTable searchKey={'label'} columns={columns} data={data}/>
+      </>
       )
 }
 

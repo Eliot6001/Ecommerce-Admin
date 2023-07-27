@@ -6,6 +6,7 @@ import { Badge, BadgeProps } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Description } from "@radix-ui/react-dialog";
 import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 interface alertApiProps {
   title: string;
@@ -27,6 +28,7 @@ export const AlertApi: React.FC<alertApiProps> = ({
   description,
   variant = "Public",
 }) => {
+  const router = useRouter();
     const onCopy = () => {
         navigator.clipboard.writeText(description);
         toast.success("Api route copied to clipboard")
