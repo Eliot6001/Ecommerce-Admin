@@ -1,3 +1,4 @@
+import { verifyAuth } from "@/app/api/(functions)/verifyAuth";
 import prismadb from "@/lib/prismadb";
 import { auth } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
@@ -24,29 +25,18 @@ export async function GET(
 
 export async function PATCH(
   req: Request,
-  { params }: { params: { billboardsId: string } }
+  { params }: { params: { storeId:string, billboardsId: string } }
 ) {
   try {
-    const { userId } = auth();
     const body = await req.json();
     const { label, imageUrl } = body;
-    if (!userId) return new NextResponse("unAuthenticated", { status: 401 });
     if (!label) return new NextResponse("Label is Needed", { status: 400 });
     if (!imageUrl)
       return new NextResponse("No Image Provided", { status: 400 });
     if (!params.billboardsId)
       return new NextResponse("billBoardId Required", { status: 401 });
-    const storeByuserId = await prismadb.billBoards.findFirst({
-      where: {
-        id: params.billboardsId,
-      },
-    });
-    
-    if (!storeByuserId) {
-      return new NextResponse("You dont have the right permissions.", {
-        status: 403,
-      });
-    }
+
+    verifyAuth(params.storeId);
     
     const billboard = await prismadb.billBoards.updateMany({
       where: {
@@ -69,27 +59,14 @@ export async function DELETE(
   { params }: { params: { storeId: string; billboardsId: string } }
 ) {
   try {
-    const { userId } = auth();
-    console.log(params.storeId, params.billboardsId, "Here is the data");
+
     if (!params.storeId)
       return new NextResponse("StoreId Required", { status: 401 });
     if (!params.billboardsId)
       return new NextResponse("billboardId Required", { status: 401 });
-    if (!userId) return new NextResponse("Not Authenticated", { status: 401 });
-
-    const storeByuserId = await prismadb.store.findFirst({
-      where: {
-        id: params.billboardsId,
-        userId,
-      },
-    });
-    console.log(storeByuserId, "Here is the data");
-
-    if (!storeByuserId) {
-      return new NextResponse("You dont have the right permissions.", {
-        status: 403,
-      });
-    }
+   
+    verifyAuth(params.storeId);
+    
 
     const billboards = await prismadb.billBoards.deleteMany({
       where: {

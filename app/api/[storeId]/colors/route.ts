@@ -9,23 +9,25 @@ export async function POST(
 ) {
   try {
     const body = await req.json();
-    const { label, imageUrl } = body;
-    if (!label) return new NextResponse("Label is Needed", { status: 400 });
-    if (!imageUrl) return new NextResponse("No Image Provided", { status: 400 });
-    if (!params.storeId) return new NextResponse("StoreId Required", { status: 401 });
+    const { name, value } = body;
+    if (!name) return new NextResponse("Name is Required", { status: 400 });
+    if (!value)
+      return new NextResponse("Value is required!", { status: 400 });
+    if (!params.storeId)
+      return new NextResponse("StoreId Required", { status: 401 });
 
-    verifyAuth(params.storeId);
-
-    const billboard = await prismadb.billBoards.create({
+    verifyAuth(params.storeId)
+    
+    const color = await prismadb.color.create({
       data: {
-        label,
-        imageUrl,
+        name,
+        value,
         storeId: params.storeId,
       },
     });
-    return NextResponse.json(billboard);
+    return NextResponse.json(color);
   } catch (error) {
-    console.log("[BILLBOARDs.POST] »» Post error", error);
+    console.log("[COLORS.POST] »» Post error", error);
     return new NextResponse("Internal Problem", { status: 500 });
   }
 }
@@ -38,15 +40,15 @@ export async function GET(
   try {
     if (!params.storeId)
       return new NextResponse("StoreId Required", { status: 401 });
-    const billboards = await prismadb.billBoards.findMany({
+    const Color = await prismadb.color.findMany({
         where:{
             storeId: params.storeId
         }
     })
-    return NextResponse.json(billboards)
+    return NextResponse.json(Color)
   }
      catch (error) {
-    console.log("[BILLBOARDs.POST] »» Post error", error);
+    console.log("[COLORS.POST] »» Post error", error);
     return new NextResponse("Internal Problem", { status: 500 });
   }
 }

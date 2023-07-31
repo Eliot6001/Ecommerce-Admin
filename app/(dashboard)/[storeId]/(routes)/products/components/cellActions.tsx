@@ -6,7 +6,7 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { useParams, useRouter } from "next/navigation";
 import { Copy, Edit, MoreHorizontal, Trash } from "lucide-react";
-import { BillBoardsColumn } from "./colums";
+import { ProductColumn } from "./colums";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -19,7 +19,7 @@ import {
 import { AlertModal } from "@/components/modals/alertModal";
 
 interface CellActionProps {
-  data: BillBoardsColumn;
+  data: ProductColumn;
 }
 
 export const CellAction: React.FC<CellActionProps> = ({ data }) => {
@@ -27,10 +27,10 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
   const params = useParams();
   const onCopy = (id: string) => {
     navigator.clipboard.writeText(id);
-    toast.success("Billboard id added to clipboard");
+    toast.success("Product id added to clipboard");
   };
   const forwardEditBillboard = (id: string) => {
-    router.push(`/${params.storeId}/billboards/${id}`);
+    router.push(`/${params.storeId}/products/${id}`);
   };
   const [loading, setLoading] = useState(false);
   const [Open, setOpen] = useState(false);
@@ -39,12 +39,12 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
     try {
       setLoading(true);
       await axios.delete(
-        `/api/${params.storeId}/billboards/${id}`
+        `/api/${params.storeId}/products/${id}`
       );
       router.refresh();
-      toast.success("Billboard Successfully Deleted!");
+      toast.success("Product Successfully Deleted!");
     } catch (error) {
-      toast.error("Make sure you've removed everything inside the billboards");
+      toast.error("Something went wrong, Try again!");
       console.log(error)
     } finally {
       setLoading(false);
@@ -65,14 +65,14 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuItem onClick={() => forwardEditBillboard(data.id)}>
-            <Edit className="w-4 h-4 mr-1" /> Edit Billboard
+            <Edit className="w-4 h-4 mr-1" /> Edit Product
           </DropdownMenuItem>
           <DropdownMenuItem onClick={() => onCopy(data.id)}>
             <Copy className="w-4 h-4 mr-1" /> Copy Url
           </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem className="bg-red-500 focus:bg-red-600/95 text-white focus:text-slate-100" onClick={() => setOpen(true)}>
-            <Trash className="w-4 h-4 mr-1 " /> Delete Billboard
+            <Trash className="w-4 h-4 mr-1 " /> Delete Product
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
