@@ -1,7 +1,7 @@
 import React from "react";
 import { StoreSwitcher } from "@/components/StoreSwitcher";
 import { MainNav } from "@/components/MainNav";
-import { ThemeToggle } from "./ThemeToggle";
+import ThemeToggle from "./ThemeToggle";
 import { UserButton, auth } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 import prismadb from "@/lib/prismadb";
