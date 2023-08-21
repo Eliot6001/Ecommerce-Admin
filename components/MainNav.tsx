@@ -53,22 +53,25 @@ export function MainNav({
       active: pathname === `/${params.storeId}/settings`,
     },
   ];
+  if(!routes) return null;
   return (
     <nav
       className={cn("flex items-center space-x-4 lg:space-x-6 mx-3", className)}
     >
-      {routes?.map((route) => (
+      
+      { //weird route?.href syntax but needed TS object issue
+      routes.map((route) => (
         <Link
-          key={route.href}
-          href={route.href}
+          key={route?.href}
+          href={route ? route.href : ''}
           className={
             (cn("text-sm font-medium transition-colors hover:text-primary"),
-            route.active
+            route?.active
               ? "text-black dark:text-white"
               : "text-gray-500 dark:text-slate-300")
           }
         >
-          {route.label}
+          {route?.label}
         </Link>
       ))}
     </nav>

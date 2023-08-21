@@ -202,9 +202,9 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData, categories, size
                   <Select
                     disabled={loading}
                     onValueChange={field.onChange}
+                    {...field}
                     defaultValue={field.value}
                     value={field.value}
-                    {...field}
                   >
                   <FormControl>
                     <SelectTrigger>
@@ -239,9 +239,9 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData, categories, size
                   <Select
                     disabled={loading}
                     onValueChange={field.onChange}
+                    {...field}
                     defaultValue={field.value}
                     value={field.value}
-                    {...field}
                   >
                   <FormControl>
                     <SelectTrigger>
@@ -276,9 +276,9 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData, categories, size
                   <Select
                     disabled={loading}
                     onValueChange={field.onChange}
-                    defaultValue={field.value}
-                    value={field.value}
                     {...field}
+                    value={field.value}
+                    defaultValue={field.value}
                   >
                   <FormControl>
                     <SelectTrigger>

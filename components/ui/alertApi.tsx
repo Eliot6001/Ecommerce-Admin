@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { Copy, Server } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
@@ -15,8 +15,8 @@ interface alertApiProps {
 }
 
 const textMap: Record<alertApiProps["variant"], string> = {
-  public: "Public",
-  admin: "Admin",
+  public: "public",
+  admin: "admin",
 };
 const variantMap: Record<alertApiProps["variant"], BadgeProps["variant"]> = {
   public: "secondary",
@@ -26,13 +26,12 @@ const variantMap: Record<alertApiProps["variant"], BadgeProps["variant"]> = {
 export const AlertApi: React.FC<alertApiProps> = ({
   title,
   description,
-  variant = "Public",
+  variant = "public",
 }) => {
-  const router = useRouter();
-    const onCopy = () => {
-        navigator.clipboard.writeText(description);
-        toast.success("Api route copied to clipboard")
-    }
+  const onCopy = () => {
+    navigator.clipboard.writeText(description);
+    toast.success("Api route copied to clipboard");
+  };
   return (
     <Alert>
       <Server className="h-4 w-4" />
@@ -45,7 +44,7 @@ export const AlertApi: React.FC<alertApiProps> = ({
           {description}
         </code>
         <Button variant={"outline"} size="icon" onClick={onCopy}>
-            <Copy className='h-4 w-4'></Copy>
+          <Copy className="h-4 w-4"></Copy>
         </Button>
       </AlertDescription>
     </Alert>
