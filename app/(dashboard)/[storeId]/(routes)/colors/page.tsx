@@ -27,7 +27,7 @@ const ColorsPage = async ({ params }: { params: { storeId: string } }) => {
         <SizeClient data={formattedColors} />
       </div>
     </div>
-  );
+  ); 
 };
 
 export default ColorsPage;
