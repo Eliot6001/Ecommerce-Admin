@@ -22,10 +22,10 @@ import axios from "axios";
 import { useParams, useRouter } from "next/navigation";
 import { AlertModal } from "@/components/modals/alertModal";
 
-interface colorFormProps {
+interface ColorFormProps {
   initialData: Color | null;
 }
-
+ 
 const formSchema = z.object({
   name: z.string().min(1),
   value: z.string().min(4).regex(/^#/, {
@@ -35,16 +35,19 @@ const formSchema = z.object({
 
 type colorFormValues = z.infer<typeof formSchema>;
 
-const colorForm: React.FC<colorFormProps> = ({ initialData }) => {
+const ColorForm: React.FC<ColorFormProps> = ({ initialData }) => {
+  const params = useParams();
+  const router = useRouter();
+
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
+
+
   const title = initialData ? "Edit Color" : "Create Color";
   const Description = initialData ? "Edit a Color" : "Add A new Color";
   const toastMessage = initialData ? "Color Updated" : "Create Color";
   const action = initialData ? "Save Changes!" : "Create";
 
-  const params = useParams();
-  const router = useRouter();
 
   const form = useForm<colorFormValues>({
     resolver: zodResolver(formSchema),
@@ -167,4 +170,4 @@ const colorForm: React.FC<colorFormProps> = ({ initialData }) => {
   );
 };
 
-export default colorForm;
+export default ColorForm;

@@ -152,9 +152,9 @@ const CategoryForm: React.FC<CategoryFormProps> = ({
                   <Select
                     disabled={loading}
                     onValueChange={field.onChange}
-                    defaultValue={field.value}
-                    value={field.value}
                     {...field}
+                    value={field.value}
+                    defaultValue={field.value}
                   >
                   <FormControl>
                     <SelectTrigger>

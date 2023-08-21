@@ -19,4 +19,4 @@ const ColorPage = async ({
   )
 }
 
-export default ColorPage
+export default ColorPage 

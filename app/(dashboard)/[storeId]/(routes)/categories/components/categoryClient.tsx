@@ -18,7 +18,7 @@ const CategoriesClient: React.FC<CategoryClientProps>
  = ({ data }) => {
   const router = useRouter();
   const params = useParams();
-
+ 
 
   return (
     <>

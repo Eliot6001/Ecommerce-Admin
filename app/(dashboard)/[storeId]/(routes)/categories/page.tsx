@@ -22,7 +22,7 @@ const CategoriesPage = async ({ params }: { params: { storeId: string } }) => {
       billboardLabel: billboard.label,
       createdAt: format(createdAt, 'MMMM do, yyyy'),
     })
-  );
+  ); 
   return (
     <div className="flex-col">
 

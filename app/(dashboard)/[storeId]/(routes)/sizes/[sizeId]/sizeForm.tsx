@@ -23,7 +23,7 @@ import { useParams, useRouter } from "next/navigation";
 import { AlertModal } from "@/components/modals/alertModal";
 import ImageUpload from "@/components/ui/imageUpload";
 
-interface sizeFormProps {
+interface SizeFormProps {
   initialData: Size | null;
 }
 
@@ -32,27 +32,30 @@ const formSchema = z.object({
   value: z.string().min(1),
 });
 
-type sizeFormValues = z.infer<typeof formSchema>;
+type SizeFormValues = z.infer<typeof formSchema>;
 
-const sizeForm: React.FC<sizeFormProps> = ({ initialData }) => {
+const SizeForm: React.FC<SizeFormProps> = ({ initialData }) => {
+  const params = useParams();
+  const router = useRouter();
+
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
+
   const title = initialData ? "Edit Size" : "Create Size";
   const Description = initialData ? "Edit a Size" : "Add A new Size";
   const toastMessage = initialData ? "Size Updated" : "Create Size";
   const action = initialData ? "Save Changes!" : "Create";
 
-  const params = useParams();
-  const router = useRouter();
+ 
 
-  const form = useForm<sizeFormValues>({
+  const form = useForm<SizeFormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: initialData || {
       name: "",
       value: "",
     },
   });
-  const onSubmit = async (data: sizeFormValues) => {
+  const onSubmit = async (data: SizeFormValues) => {
     try {
       setLoading(true);
       if (initialData)
@@ -161,4 +164,4 @@ const sizeForm: React.FC<sizeFormProps> = ({ initialData }) => {
   );
 };
 
-export default sizeForm;
+export default SizeForm;

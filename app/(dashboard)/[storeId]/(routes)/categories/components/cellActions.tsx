@@ -21,7 +21,7 @@ import { AlertModal } from "@/components/modals/alertModal";
 interface CellActionProps {
   data: CategoryColumn;
 }
-
+ 
 export const CellAction: React.FC<CellActionProps> = ({ data }) => {
   const router = useRouter();
   const params = useParams();
